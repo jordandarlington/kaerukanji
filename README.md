@@ -1,5 +1,13 @@
 # Kaeru Kanji
 
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+---
+
 A static JLPT N5 multiple-choice flashcard quiz, ready for GitHub Pages. No accounts, backend, analytics, cookies, or saved progress. Round scores live only in memory and disappear when the page reloads.
 
 Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢字**. A green seal-style frog mark in `favicon.svg` is used for both the header logo and browser favicon.
@@ -67,3 +75,14 @@ The content lives separately from the quiz in `decks/n5.js`. Add a similar `deck
 ```
 
 Import the new deck in `app.js` and add a level selector when you are ready. Update the visible level labels and the question-count maximum to use the selected deck’s size. The question generator in `src/quiz.js` already accepts any deck with at least four distinct answer choices.
+
+[contributors-shield]: https://img.shields.io/github/contributors/jordandarlington/kaerukanji.svg?style=for-the-badge
+[contributors-url]: https://github.com/jordandarlington
+[forks-shield]: https://img.shields.io/github/forks/jordandarlington/kaerukanji.svg?style=for-the-badge
+[forks-url]: https://github.com/jordandarlington/kaerukanji/network/members
+[stars-shield]: https://img.shields.io/github/stars/jordandarlington/kaerukanji.svg?style=for-the-badge
+[stars-url]: https://github.com/jordandarlington/kaerukanji/stargazers
+[issues-shield]: https://img.shields.io/github/issues/jordandarlington/kaerukanji.svg?style=for-the-badge
+[issues-url]: https://github.com/jordandarlington/kaerukanji/issues
+[license-shield]: https://img.shields.io/github/license/jordandarlington/kaerukanji.svg?style=for-the-badge
+[license-url]: https://github.com/jordandarlington/kaerukanji/blob/main/LICENSE
