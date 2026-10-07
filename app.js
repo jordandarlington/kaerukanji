@@ -9,7 +9,6 @@ const deck = n5;
 const $ = id => document.getElementById(id);
 const settingsForm = $('settings');
 let session;
-let meaningPinned = false;
 
 function showSettings() {
   $('settings-panel').hidden = false;
@@ -50,12 +49,8 @@ function startQuiz(settings, focus = false) {
 
 function renderQuestion(focus = false) {
   const { card, prompt, choices } = session.questions[session.index];
-  meaningPinned = false;
   $('meaning').hidden = true;
   $('meaning').textContent = card.meaning;
-  $('show-meaning').hidden = !session.settings.hints;
-  $('show-meaning').textContent = 'Show meaning';
-  $('show-meaning').setAttribute('aria-expanded', 'false');
   $('question-position').replaceChildren();
   const position = document.createElement('strong');
   position.textContent = String(session.index + 1).padStart(2, '0');
@@ -151,18 +146,19 @@ function showResults() {
 
 function setMeaningVisible(visible) {
   $('meaning').hidden = !visible;
-  $('show-meaning').setAttribute('aria-expanded', String(visible));
 }
 $('flashcard').addEventListener('mouseenter', () => {
-  if (session?.settings.hints) setMeaningVisible(true);
+  if (session) setMeaningVisible(true);
 });
 $('flashcard').addEventListener('mouseleave', () => {
-  if (!meaningPinned) setMeaningVisible(false);
+  if (!$('flashcard').matches(':focus-visible')) setMeaningVisible(false);
 });
-$('show-meaning').addEventListener('click', () => {
-  meaningPinned = !meaningPinned;
-  setMeaningVisible(meaningPinned);
-  $('show-meaning').textContent = meaningPinned ? 'Hide meaning' : 'Show meaning';
+$('flashcard').addEventListener('focus', () => {
+  if (session) setMeaningVisible(true);
+});
+$('flashcard').addEventListener('blur', () => setMeaningVisible(false));
+$('flashcard').addEventListener('pointerup', event => {
+  if (session && event.pointerType === 'touch') setMeaningVisible(true);
 });
 
 function updateCountPresets() {
@@ -185,7 +181,7 @@ settingsForm.addEventListener('submit', event => {
   if (!settingsForm.reportValidity()) return;
   updateCountPresets();
   const form = new FormData(settingsForm);
-  startQuiz({ mode: form.get('mode'), count: Number(form.get('count')), hints: form.has('hints') }, true);
+  startQuiz({ mode: form.get('mode'), count: Number(form.get('count')) }, true);
   if (window.matchMedia('(max-width:700px)').matches) {
     $('quiz-view').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f8f6">
-    <meta name="description" content="Kaeru Kanji: a simple JLPT N5 kanji flashcard quiz. Practise kanji and hiragana with optional English hints.">
+    <meta name="description" content="Kaeru Kanji: a simple JLPT N5 kanji flashcard quiz. Practise kanji and hiragana with English hints available on hover or tap.">
     <title>Kaeru Kanji · JLPT N5</title>
     <link rel="canonical" href="https://kaerukanji.com/">
     <script>
@@ -43,19 +43,18 @@
               <label class="mode-option"><input type="radio" name="mode" value="kanji"><span><strong>Kanji</strong><small>See hiragana, choose the word</small></span><span class="mode-symbol" lang="ja">漢</span></label>
             </div></fieldset>
             <fieldset class="count-settings"><legend>How many questions?</legend><div class="count-presets"><button type="button" data-count="10" class="selected" aria-pressed="true">10</button><button type="button" data-count="20" aria-pressed="false">20</button><button type="button" data-count="30" aria-pressed="false">30</button><button type="button" data-count="113" aria-pressed="false">All</button></div><label class="custom-count" for="question-count"><span>Or choose a number</span><input id="question-count" name="count" type="number" min="1" max="113" value="10" required inputmode="numeric"></label></fieldset>
-            <div class="hint-setting"><label for="english-hints"><span><strong>English hints</strong><small>Hover over a card to see its meaning.<br> You can also tap “Show meaning”.</small></span><span class="switch"><input id="english-hints" name="hints" type="checkbox" checked><span class="switch-track"></span></span></label></div>
             <button class="primary-button start-button" type="submit">Start quiz</button><p class="settings-note">Settings apply to your next quiz.</p>
           </form>
-          <div class="deck-note"><span class="deck-mark" lang="ja">五</span><div><strong>The N5 collection</strong><p>113 kanji from <a href="https://langoal.com/teaching-materials/kanji/n5-overview.html" target="_blank" rel="noopener noreferrer">Langoal’s N5 list</a>.</p></div></div>
+          <div class="deck-note"><span class="deck-mark" lang="ja">五</span><div><strong>The N5 collection</strong><p>113 Kanji</p></div></div>
         </aside>
         <section id="quiz-panel" class="quiz-panel" aria-labelledby="quiz-title" hidden>
           <div id="quiz-view" hidden>
             <div class="quiz-topline"><h2 id="quiz-title">Choose the hiragana</h2><div class="quiz-actions"><span id="question-position" class="question-position"></span><button id="end-quiz" class="text-button" type="button">End quiz</button></div></div>
             <div id="progress" class="progress-track" role="progressbar" aria-label="Questions answered" aria-valuemin="0"><span id="progress-fill"></span></div>
-            <div id="flashcard" class="flashcard">
-              <div class="card-meta"><span id="card-category"></span><span id="target-kanji" lang="ja"></span></div>
+            <div id="flashcard" class="flashcard" tabindex="0" aria-describedby="hint-reminder meaning">
+              <div class="card-meta"><div class="card-topic"><span id="card-category"></span><span id="target-kanji" lang="ja"></span></div><small id="hint-reminder" class="hint-reminder"><span class="hover-hint">Hover for English</span><span class="touch-hint">Tap for English</span></small></div>
               <p id="card-prompt" class="card-prompt" lang="ja"></p>
-              <div class="card-hint"><p id="meaning" hidden></p><button id="show-meaning" class="hint-button" type="button" aria-controls="meaning" aria-expanded="false">Show meaning</button></div>
+              <div class="card-hint"><p id="meaning" hidden></p></div>
             </div>
             <div id="answers" class="answers" role="group" aria-label="Answer choices"></div>
             <div class="question-footer"><div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true">Choose one answer to continue.</div><button id="next" class="primary-button next-button" type="button" hidden>Next card</button></div>

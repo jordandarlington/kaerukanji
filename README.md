@@ -14,7 +14,7 @@ Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢
 
 - Choose hiragana for a kanji word, or choose a kanji word for hiragana.
 - Select 1–113 questions, with shortcuts for 10, 20, 30, or the full deck.
-- Enable optional English hints by hovering, tapping, or using the hint button with a keyboard.
+- Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard.
 - Get immediate answer feedback and a round summary showing any missed words.
 - Use keys **1–4** to answer and **Enter** on the next-card button to advance.
 - Switch between light and dark appearance with the header’s **Dark mode** toggle. Your device’s preference is used until you choose a theme; only your theme choice is saved locally.
