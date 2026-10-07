@@ -104,7 +104,15 @@ function answer(index) {
     }
   });
   const { word, reading, meaning } = question.card;
-  $('feedback').textContent = `${chosen.correct ? 'Correct.' : 'Not quite.'} ${word} · ${reading} — ${meaning}`;
+  if (chosen.correct) {
+    $('feedback').textContent = `Correct. ${word} · ${reading} — ${meaning}`;
+  } else {
+    const correctAnswer = document.createElement('div');
+    correctAnswer.textContent = `Not quite. Correct answer: ${word} · ${reading} — ${meaning}`;
+    const selectedAnswer = document.createElement('div');
+    selectedAnswer.textContent = `Your answer: ${chosen.card.word} · ${chosen.card.reading} — ${chosen.card.meaning}`;
+    $('feedback').replaceChildren(correctAnswer, selectedAnswer);
+  }
   $('feedback').className = `feedback ${chosen.correct ? 'correct-feedback' : 'wrong-feedback'}`;
   $('progress-fill').style.width = `${session.answers.length / session.settings.count * 100}%`;
   $('progress').setAttribute('aria-valuenow', session.answers.length);

@@ -54,6 +54,19 @@ test('shared readings cannot appear as incorrect kanji answers', () => {
   }
 });
 
+test('every answer keeps its source word, reading and translation in both modes', () => {
+  for (const mode of ['reading', 'kanji']) {
+    for (const question of createQuestions(n5, mode, 113)) {
+      for (const choice of question.choices) {
+        assert.ok(n5.cards.includes(choice.card));
+        assert.equal(choice.label, mode === 'reading' ? choice.card.reading : choice.card.word);
+        assert.ok(choice.card.meaning.length > 0);
+        assert.equal(choice.correct, choice.card === question.card);
+      }
+    }
+  }
+});
+
 test('question count supports one, presets, custom counts and all without repeats', () => {
   for (const count of [1, 10, 17, 20, 30, 113]) {
     const questions = createQuestions(n5, 'reading', count);

@@ -27,6 +27,7 @@ export function createQuestions(deck, mode, count, random = Math.random) {
       prompt: mode === 'reading' ? card.word : card.reading,
       choices: shuffle([card, ...distractors].map(choice => ({
         label: choice[answerField],
+        card: choice,
         correct: choice === card,
       })), random),
     };
