@@ -20,7 +20,7 @@ Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢
 - Use keys **1–4** to answer and **Enter** on the next-card button to advance.
 - Switch between light and dark appearance with the header’s **Dark mode** toggle. Your device’s preference is used until you choose a theme; only your theme choice is saved locally.
 
-Choose your settings before starting. During the quiz, the settings panel is hidden and the cards are centred. **End quiz** returns to setup; completing the round brings the settings back alongside your results.
+Choose your settings before starting. During the quiz and on the completion page, the settings panel is hidden and the card is centred. **End quiz** or **Back to settings** returns to setup with your selections preserved. **Practise again** starts a fresh shuffle with the same settings.
 
 ## Run locally
 

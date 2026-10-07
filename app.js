@@ -132,7 +132,9 @@ function nextQuestion() {
 function showResults() {
   const score = session.answers.filter(answer => answer.correct).length;
   const missed = session.answers.filter(answer => !answer.correct);
-  showSettings();
+  $('settings-panel').hidden = true;
+  $('mobile-settings-link').hidden = true;
+  $('workspace').classList.add('quiz-active');
   $('quiz-panel').setAttribute('aria-labelledby', 'results-title');
   $('quiz-view').hidden = true;
   $('results-view').hidden = false;
@@ -254,6 +256,7 @@ settingsForm.addEventListener('submit', event => {
 $('next').addEventListener('click', nextQuestion);
 $('end-quiz').addEventListener('click', () => showSetup(true));
 $('practice-again').addEventListener('click', () => startQuiz(session.settings, true));
+$('back-to-settings').addEventListener('click', () => showSetup(true));
 document.addEventListener('keydown', event => {
   if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
   const target = event.target;
