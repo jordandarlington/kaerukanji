@@ -1,6 +1,7 @@
 import { n5 } from './decks/n5.js';
-import { createQuestions } from './src/quiz.js';
+import { createQuestions, selectTopics } from './src/quiz.js';
 import { initializeTheme } from './src/theme.js';
+import { createTopicIcon } from './src/topic-icons.js';
 
 initializeTheme();
 
@@ -30,7 +31,7 @@ function showSetup(focus = false) {
 function startQuiz(settings, focus = false) {
   session = {
     settings,
-    questions: createQuestions(deck, settings.mode, settings.count),
+    questions: createQuestions(selectTopics(deck, settings.topics), settings.mode, settings.count),
     index: 0,
     answers: [],
   };
@@ -169,27 +170,83 @@ $('flashcard').addEventListener('pointerup', event => {
   if (session && event.pointerType === 'touch') setMeaningVisible(true);
 });
 
+const topics = [...new Set(deck.cards.map(card => card.category))];
+for (const topic of topics) {
+  const label = document.createElement('label');
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.name = 'topics';
+  input.value = topic;
+  input.checked = true;
+  const text = document.createElement('span');
+  text.className = 'topic-label';
+  const name = document.createElement('strong');
+  name.textContent = topic;
+  const count = document.createElement('small');
+  const total = deck.cards.filter(card => card.category === topic).length;
+  count.textContent = String(total);
+  count.setAttribute('aria-label', `${total} kanji`);
+  count.title = `${total} kanji`;
+  text.append(name);
+  label.append(input, createTopicIcon(topic), text, count);
+  $('topic-options').append(label);
+}
+
+function selectedTopics() {
+  return [...new FormData(settingsForm).getAll('topics')];
+}
+
+function presetCount(button) {
+  return button.dataset.count === 'all' ? Number($('question-count').max) : Number(button.dataset.count);
+}
+
+function updateTopics() {
+  const selected = selectedTopics();
+  const available = selectTopics(deck, selected).cards.length;
+  const count = $('question-count');
+  const wasAll = Number(count.value) === Number(count.max);
+  count.max = String(available);
+  if (available > 0 && (wasAll || Number(count.value) > available)) count.value = String(available);
+  count.disabled = available === 0;
+  $('topic-summary').textContent = selected.length === topics.length ? 'All topics selected' : `${selected.length} of ${topics.length} topics selected`;
+  $('topic-status').textContent = available ? `${available} kanji available` : 'Select at least one topic to start.';
+  settingsForm.querySelector('[type="submit"]').disabled = available === 0;
+  for (const button of document.querySelectorAll('[data-count]')) {
+    button.disabled = available === 0 || presetCount(button) > available;
+  }
+  updateCountPresets();
+}
+
+$('topic-options').addEventListener('change', updateTopics);
+for (const [id, checked] of [['select-all-topics', true], ['clear-topics', false]]) {
+  $(id).addEventListener('click', () => {
+    for (const input of $('topic-options').querySelectorAll('input')) input.checked = checked;
+    updateTopics();
+  });
+}
+
 function updateCountPresets() {
   const value = Number($('question-count').value);
   for (const button of document.querySelectorAll('[data-count]')) {
-    const selected = value === Number(button.dataset.count);
+    const selected = !button.disabled && value === presetCount(button);
     button.classList.toggle('selected', selected);
     button.setAttribute('aria-pressed', String(selected));
   }
 }
 document.querySelectorAll('[data-count]').forEach(button => {
   button.addEventListener('click', () => {
-    $('question-count').value = button.dataset.count;
+    $('question-count').value = String(presetCount(button));
     updateCountPresets();
   });
 });
 $('question-count').addEventListener('input', updateCountPresets);
 settingsForm.addEventListener('submit', event => {
   event.preventDefault();
+  if (selectedTopics().length === 0) return;
   if (!settingsForm.reportValidity()) return;
   updateCountPresets();
   const form = new FormData(settingsForm);
-  startQuiz({ mode: form.get('mode'), count: Number(form.get('count')) }, true);
+  startQuiz({ mode: form.get('mode'), count: Number(form.get('count')), topics: form.getAll('topics') }, true);
   if (window.matchMedia('(max-width:700px)').matches) {
     $('quiz-view').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   }
@@ -211,4 +268,5 @@ document.addEventListener('keydown', event => {
   }
 });
 
+updateTopics();
 showSetup();

@@ -13,7 +13,8 @@ A static JLPT N5 multiple-choice flashcard quiz, ready for GitHub Pages. No acco
 Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢字**. A green seal-style frog mark in `favicon.svg` is used for both the header logo and browser favicon.
 
 - Choose hiragana for a kanji word, or choose a kanji word for hiragana.
-- Select 1–113 questions, with shortcuts for 10, 20, 30, or the full deck.
+- Choose the topics to practise; all topics are selected by default. Questions and answer choices come from the selected topics.
+- Select up to the number of kanji in your chosen topics, with shortcuts for 10, 20, 30, or all available kanji.
 - Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard.
 - Get immediate answer feedback and a round summary showing any missed words.
 - Use keys **1–4** to answer and **Enter** on the next-card button to advance.

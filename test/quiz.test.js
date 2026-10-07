@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { n5 } from '../decks/n5.js';
-import { createQuestions, shuffle } from '../src/quiz.js';
+import { createQuestions, selectTopics, shuffle } from '../src/quiz.js';
 
 const sourceGroups = [
   '一二三四五六七八九十百千円', '月火水木金土日年', '人子男女父母',
@@ -85,4 +85,34 @@ test('shuffling and creating questions preserve the source deck', () => {
   createQuestions(n5, 'kanji', 113);
   assert.deepEqual(n5.cards, before);
   assert.notEqual(shuffle(n5.cards), n5.cards);
+});
+
+test('topic selection defaults to the full deck when all topics are selected', () => {
+  const topics = [...new Set(n5.cards.map(card => card.category))];
+  assert.deepEqual(selectTopics(n5, topics).cards, n5.cards);
+  assert.equal(selectTopics(n5, ['Numbers', 'Food']).cards.length, 18);
+  assert.equal(selectTopics(n5, ['Food', 'Food']).cards.length, 5);
+  assert.deepEqual(selectTopics(n5, []).cards, []);
+  assert.throws(() => createQuestions(selectTopics(n5, []), 'reading', 1));
+  assert.throws(() => createQuestions(selectTopics(n5, ['Food']), 'reading', 6));
+});
+
+test('each topic supports both quiz modes with questions and choices restricted to that topic', () => {
+  const before = structuredClone(n5);
+  for (const topic of new Set(n5.cards.map(card => card.category))) {
+    const filtered = selectTopics(n5, [topic]);
+    for (const mode of ['reading', 'kanji']) {
+      for (const random of [() => 0, () => 0.99999]) {
+        const questions = createQuestions(filtered, mode, filtered.cards.length, random);
+        assert.equal(new Set(questions.map(question => question.card.kanji)).size, filtered.cards.length);
+        for (const question of questions) {
+          assert.equal(question.card.category, topic);
+          assert.equal(new Set(question.choices.map(choice => choice.label)).size, 4);
+          assert.equal(question.choices.filter(choice => choice.correct).length, 1);
+          assert.ok(question.choices.every(choice => choice.card.category === topic));
+        }
+      }
+    }
+  }
+  assert.deepEqual(n5, before);
 });

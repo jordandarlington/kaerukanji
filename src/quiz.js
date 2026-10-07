@@ -1,3 +1,8 @@
+export function selectTopics(deck, topics) {
+  const selected = new Set(topics);
+  return { ...deck, cards: deck.cards.filter(card => selected.has(card.category)) };
+}
+
 export function shuffle(items, random = Math.random) {
   const result = [...items];
   for (let index = result.length - 1; index > 0; index--) {
