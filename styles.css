@@ -167,11 +167,6 @@ h1 {
   font-weight:650;
   line-height:1.15
 }
-.intro {
-  font-size:1rem;
-  color:var(--muted);
-  margin-top:12px
-}
 .level-badge {
   display:flex;
   align-items:center;
@@ -656,16 +651,10 @@ kbd {
   background:var(--surface-soft)
 }
 .site-footer {
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
   margin-top:28px;
   color:var(--secondary);
   font-size:.75rem;
   line-height:1.6
-}
-.site-footer a {
-  color:var(--muted)
 }
 .results-view {
   padding:40px 12px;
@@ -770,9 +759,6 @@ kbd {
   .feedback {
     max-width:65%
   }
-  .site-footer {
-    font-size:.75rem
-  }
   .card-prompt {
     font-size:3.7rem
   }
@@ -813,9 +799,6 @@ kbd {
   h1 {
     font-size:1.9rem;
     letter-spacing:-1px
-  }
-  .intro {
-    font-size:.875rem
   }
   .level-badge {
     padding:8px 10px
@@ -905,12 +888,6 @@ kbd {
   }
   .keyboard-note {
     display:none
-  }
-  .site-footer {
-    flex-direction:column;
-    gap:8px;
-    margin-top:22px;
-    font-size:.75rem
   }
   .results-view {
     min-height:470px;
