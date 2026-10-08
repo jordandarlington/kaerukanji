@@ -14,6 +14,14 @@ const paths = {
   Verbs: 'M13 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4 M6 12l3-4 5 1 3 4h4 M14 9l-3 6 5 3v4 M11 15l-4 5H3',
 };
 
+const aliases = {
+  'Colours & shapes': 'Adjectives', Weather: 'Nature',
+  'Countryside & clothes': 'Plants & animals', Cooking: 'Food',
+  Address: 'City', Shopping: 'City', Transport: 'Position', Places: 'City',
+  Study: 'School', Subjects: 'School', University: 'School', Hobbies: 'Verbs',
+  'Paired verbs': 'Verbs', 'Adjectives 1': 'Adjectives', 'Adjectives 2': 'Adjectives',
+};
+
 export function createTopicIcon(topic) {
   const namespace = 'http://www.w3.org/2000/svg';
   const icon = document.createElementNS(namespace, 'svg');
@@ -27,7 +35,7 @@ export function createTopicIcon(topic) {
   icon.setAttribute('stroke-linecap', 'round');
   icon.setAttribute('stroke-linejoin', 'round');
   const path = document.createElementNS(namespace, 'path');
-  path.setAttribute('d', paths[topic] ?? 'M4 4h16v16H4Z M8 9h8 M8 15h8');
+  path.setAttribute('d', paths[aliases[topic] ?? topic] ?? 'M4 4h16v16H4Z M8 9h8 M8 15h8');
   icon.append(path);
   return icon;
 }

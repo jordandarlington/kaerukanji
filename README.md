@@ -8,11 +8,12 @@
 
 ---
 
-A static JLPT N5 multiple-choice flashcard quiz, ready for GitHub Pages. No accounts, backend, analytics, cookies, or saved progress. Round scores live only in memory and disappear when the page reloads.
+A static JLPT N5 and N4 multiple-choice flashcard quiz, ready for GitHub Pages. No accounts, backend, analytics, cookies, or saved progress. Round scores live only in memory and disappear when the page reloads.
 
 Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢字**. A green seal-style frog mark in `favicon.svg` is used for both the header logo and browser favicon.
 
 - Choose hiragana for a kanji word, or choose a kanji word for hiragana.
+- Choose N5 (113 kanji) or N4 (209 kanji) from the level selector at the top right. N5 is the default; switching levels returns to setup, selects all topics in that level and updates the question limit. The selector is disabled during an active quiz.
 - Choose the topics to practise; all topics are selected by default. Questions and answer choices come from the selected topics.
 - Select up to the number of kanji in your chosen topics, with shortcuts for 10, 20, 30, or all available kanji.
 - Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard.
@@ -56,13 +57,13 @@ See [GitHub’s custom Pages workflow documentation](https://docs.github.com/en/
 
 ## Content and readings
 
-The deck covers all **113 kanji in 13 categories** from [Langoal’s N5 overview](https://langoal.com/teaching-materials/kanji/n5-overview.html), checked on 5 October 2026. Each card’s source link points to its kanji detail page. The examples and readings were verified against those linked pages; English glosses are kept short and adjusted where needed.
+The N5 deck covers all **113 kanji in 13 categories** from [Langoal’s N5 overview](https://langoal.com/teaching-materials/kanji/n5-overview.html), checked on 5 October 2026. The N4 deck covers all **209 kanji in 19 categories** from [Langoal’s N4 overview](https://langoal.com/teaching-materials/kanji/n4-overview.html), checked on 8 October 2026. Each card’s source link points to its kanji detail page. The examples and readings were verified against those linked pages; English glosses are kept short and corrected where needed.
 
 Kanji often have several readings. Each card uses **one contextual word** from its detail page, including okurigana where appropriate: for example, `食べる → たべる` and `学校 → がっこう`. The deck is a practice set, not an exhaustive list of each kanji’s readings. Distractors with the same hiragana reading are excluded in reverse mode, so a valid alternative word is never marked wrong. Questions are shuffled without repeating a target kanji within a round.
 
-## Add N4 later
+## Add more levels
 
-The content lives separately from the quiz in `decks/n5.js`. Add a similar `decks/n4.js` exporting a deck with `id`, `label`, `source`, and `cards`. Each card has:
+The content lives separately from the quiz in `decks/n5.js` and `decks/n4.js`. Add another deck exporting `id`, `label`, `source`, and `cards`. Each card has:
 
 ```js
 {
@@ -75,7 +76,7 @@ The content lives separately from the quiz in `decks/n5.js`. Add a similar `deck
 }
 ```
 
-Import the new deck in `app.js` and add a level selector when you are ready. Update the visible level labels and the question-count maximum to use the selected deck’s size. The question generator in `src/quiz.js` already accepts any deck with at least four distinct answer choices.
+Import the new deck and register it in `app.js`’s `decks` object, then add its option to the level selector in `index.html` and add topic icons in `src/topic-icons.js` where needed. Topic cards, counts and quiz questions follow the selected deck. Every selectable topic must provide at least four distinct answer choices after excluding shared readings.
 
 [contributors-shield]: https://img.shields.io/github/contributors/jordandarlington/kaerukanji.svg?style=for-the-badge
 [contributors-url]: https://github.com/jordandarlington

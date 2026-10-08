@@ -1,17 +1,20 @@
 import { n5 } from './decks/n5.js';
+import { n4 } from './decks/n4.js';
 import { createQuestions, selectTopics } from './src/quiz.js';
 import { initializeTheme } from './src/theme.js';
 import { createTopicIcon } from './src/topic-icons.js';
 
 initializeTheme();
 
-// Register a new deck here when adding N4 or other levels.
-const deck = n5;
+const decks = { n5, n4 };
+let deck = n5;
+let topics = [];
 const $ = id => document.getElementById(id);
 const settingsForm = $('settings');
 let session;
 
 function showSettings() {
+  $('level-select').disabled = false;
   $('settings-panel').hidden = false;
   $('mobile-settings-link').hidden = false;
   $('workspace').classList.remove('quiz-active');
@@ -31,11 +34,12 @@ function showSetup(focus = false) {
 function startQuiz(settings, focus = false) {
   session = {
     settings,
-    questions: createQuestions(selectTopics(deck, settings.topics), settings.mode, settings.count),
+    questions: createQuestions(selectTopics(decks[settings.level], settings.topics), settings.mode, settings.count),
     index: 0,
     answers: [],
   };
   $('workspace').classList.remove('setup-active');
+  $('level-select').disabled = true;
   $('quiz-panel').hidden = false;
   $('settings-panel').hidden = true;
   $('mobile-settings-link').hidden = true;
@@ -132,6 +136,7 @@ function nextQuestion() {
 function showResults() {
   const score = session.answers.filter(answer => answer.correct).length;
   const missed = session.answers.filter(answer => !answer.correct);
+  $('level-select').disabled = false;
   $('settings-panel').hidden = true;
   $('mobile-settings-link').hidden = true;
   $('workspace').classList.add('quiz-active');
@@ -172,27 +177,43 @@ $('flashcard').addEventListener('pointerup', event => {
   if (session && event.pointerType === 'touch') setMeaningVisible(true);
 });
 
-const topics = [...new Set(deck.cards.map(card => card.category))];
-for (const topic of topics) {
-  const label = document.createElement('label');
-  const input = document.createElement('input');
-  input.type = 'checkbox';
-  input.name = 'topics';
-  input.value = topic;
-  input.checked = true;
-  const text = document.createElement('span');
-  text.className = 'topic-label';
-  const name = document.createElement('strong');
-  name.textContent = topic;
-  const count = document.createElement('small');
-  const total = deck.cards.filter(card => card.category === topic).length;
-  count.textContent = String(total);
-  count.setAttribute('aria-label', `${total} kanji`);
-  count.title = `${total} kanji`;
-  text.append(name);
-  label.append(input, createTopicIcon(topic), text, count);
-  $('topic-options').append(label);
+function renderTopics() {
+  topics = [...new Set(deck.cards.map(card => card.category))];
+  $('topic-options').replaceChildren();
+  for (const topic of topics) {
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.name = 'topics';
+    input.value = topic;
+    input.checked = true;
+    const text = document.createElement('span');
+    text.className = 'topic-label';
+    const name = document.createElement('strong');
+    name.textContent = topic;
+    const count = document.createElement('small');
+    const total = deck.cards.filter(card => card.category === topic).length;
+    count.textContent = String(total);
+    count.setAttribute('aria-label', `${total} kanji`);
+    count.title = `${total} kanji`;
+    text.append(name);
+    label.append(input, createTopicIcon(topic), text, count);
+    $('topic-options').append(label);
+  }
 }
+
+function updateLevel() {
+  const level = $('level-select').value;
+  deck = decks[level];
+  $('level-overview').textContent = `${deck.label} · ${deck.cards.length} KANJI`;
+  renderTopics();
+  updateTopics();
+}
+
+$('level-select').addEventListener('change', () => {
+  updateLevel();
+  showSetup();
+});
 
 function selectedTopics() {
   return [...new FormData(settingsForm).getAll('topics')];
@@ -248,7 +269,7 @@ settingsForm.addEventListener('submit', event => {
   if (!settingsForm.reportValidity()) return;
   updateCountPresets();
   const form = new FormData(settingsForm);
-  startQuiz({ mode: form.get('mode'), count: Number(form.get('count')), topics: form.getAll('topics') }, true);
+  startQuiz({ level: form.get('level'), mode: form.get('mode'), count: Number(form.get('count')), topics: form.getAll('topics') }, true);
   if (window.matchMedia('(max-width:700px)').matches) {
     $('quiz-view').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   }
@@ -271,5 +292,5 @@ document.addEventListener('keydown', event => {
   }
 });
 
-updateTopics();
+updateLevel();
 showSetup();

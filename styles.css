@@ -74,7 +74,7 @@ a {
   color:inherit;
   text-underline-offset:3px
 }
-button:focus-visible,input:focus-visible,a:focus-visible {
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible {
   outline:3px solid var(--focus);
   outline-offset:4px
 }
@@ -176,11 +176,16 @@ h1 {
   font-size:.875rem;
   font-weight:700
 }
-.level-badge span {
-  color:var(--muted);
-  border-left:1px solid var(--border);
-  padding-left:10px;
-  font-weight:400
+.level-badge select {
+  border:0;
+  background:var(--surface);
+  color:var(--foreground);
+  font:inherit;
+  padding-right:4px;
+  cursor:pointer
+}
+.level-badge select:disabled {
+  cursor:default
 }
 .workspace {
   display:grid;
@@ -422,33 +427,6 @@ h2 {
   color:var(--muted);
   text-align:center;
   margin-top:11px
-}
-.deck-note {
-  display:flex;
-  gap:12px;
-  border-top:1px solid var(--border);
-  margin-top:25px;
-  padding-top:23px
-}
-.deck-mark {
-  width:31px;
-  height:31px;
-  border:1px solid var(--border);
-  border-radius:5px;
-  display:grid;
-  place-items:center;
-  color:var(--muted);
-  font-family:var(--japanese)
-}
-.deck-note strong {
-  font-size:.8125rem;
-  font-weight:600
-}
-.deck-note p {
-  font-size:.75rem;
-  color:var(--muted);
-  margin-top:5px;
-  line-height:1.6
 }
 .quiz-panel {
   padding:26px 30px 20px
@@ -830,9 +808,6 @@ kbd {
   .level-badge {
     padding:8px 10px
   }
-  .level-badge span {
-    display:none
-  }
   .eyebrow {
     font-size:.75rem;
     letter-spacing:1.2px
@@ -870,9 +845,6 @@ kbd {
   }
   .start-button {
     margin-top:20px
-  }
-  .deck-note {
-    display:none
   }
   .quiz-panel {
     width:100%;
