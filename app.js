@@ -27,7 +27,6 @@ function setViewMode(mode, focus = false) {
   else {
     session = null;
     $('level-select').disabled = false;
-    $('mobile-settings-link').hidden = true;
     browse.refresh();
     if (focus) $('browse-title').focus();
   }
@@ -41,7 +40,6 @@ function showSettings() {
   $('browse-mode').disabled = false;
   $('level-select').disabled = false;
   $('settings-panel').hidden = false;
-  $('mobile-settings-link').hidden = false;
   $('workspace').classList.remove('quiz-active');
   $('workspace').classList.remove('setup-active');
 }
@@ -69,7 +67,6 @@ function startQuiz(settings, focus = false) {
   $('level-select').disabled = true;
   $('quiz-panel').hidden = false;
   $('settings-panel').hidden = true;
-  $('mobile-settings-link').hidden = true;
   $('workspace').classList.add('quiz-active');
   $('quiz-panel').setAttribute('aria-labelledby', 'quiz-title');
   $('results-view').hidden = true;
@@ -167,7 +164,6 @@ function showResults() {
   $('browse-mode').disabled = false;
   $('level-select').disabled = false;
   $('settings-panel').hidden = true;
-  $('mobile-settings-link').hidden = true;
   $('workspace').classList.add('quiz-active');
   $('quiz-panel').setAttribute('aria-labelledby', 'results-title');
   $('quiz-view').hidden = true;

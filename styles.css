@@ -1053,11 +1053,6 @@ kbd {
     scroll-behavior:auto!important
   }
 }
-.mobile-settings-link {
-  display:none;
-  font-size:.875rem;
-  color:var(--muted)
-}
 .mode-option small,.custom-count {
   font-size:.875rem
 }
@@ -1079,9 +1074,6 @@ kbd {
   }
 }
 @media(max-width:700px) {
-  .mobile-settings-link {
-    display:block
-  }
   .quiz-panel {
     order:-1
   }
