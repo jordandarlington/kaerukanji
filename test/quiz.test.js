@@ -23,6 +23,19 @@ test('the deck exactly covers the 113 kanji on the requested source list', () =>
   }
 });
 
+test('N5 numbers use standalone kanji and number readings instead of object counters', () => {
+  const expected = [
+    ['一', 'いち'], ['二', 'に'], ['三', 'さん'], ['四', 'よん'], ['五', 'ご'],
+    ['六', 'ろく'], ['七', 'なな'], ['八', 'はち'], ['九', 'きゅう'], ['十', 'じゅう'],
+  ];
+  for (const [kanji, reading] of expected) {
+    const card = n5.cards.find(card => card.kanji === kanji);
+    assert.equal(card.word, kanji);
+    assert.equal(card.reading, reading);
+    assert.equal(card.category, 'Numbers');
+  }
+});
+
 for (const mode of ['reading', 'kanji']) {
   test(`${mode} mode has four unique choices and one correct answer throughout the full deck`, () => {
     for (const random of [() => 0, () => 0.99999, Math.random]) {

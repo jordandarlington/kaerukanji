@@ -1,21 +1,22 @@
 // Kanji membership and example word/readings checked against Langoal on 2026-10-05.
-// One contextual vocabulary example per kanji; this is not an exhaustive reading list.
+// One example per kanji; this is not an exhaustive reading list.
+// Numbers 1–10 use standalone readings, checked against the Japan Foundation on 2026-10-08.
 export const n5 = {
   id: 'n5',
   label: 'JLPT N5',
   source: 'https://langoal.com/teaching-materials/kanji/n5-overview.html',
   verifiedOn: '2026-10-05',
   cards: [
-    {"kanji": "一", "word": "一つ", "reading": "ひとつ", "meaning": "one", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/ichi"},
-    {"kanji": "二", "word": "二つ", "reading": "ふたつ", "meaning": "two", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/ni"},
-    {"kanji": "三", "word": "三つ", "reading": "みっつ", "meaning": "three", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/san"},
-    {"kanji": "四", "word": "四つ", "reading": "よっつ", "meaning": "four", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/yon"},
-    {"kanji": "五", "word": "五つ", "reading": "いつつ", "meaning": "five", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/go"},
-    {"kanji": "六", "word": "六つ", "reading": "むっつ", "meaning": "six", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/roku"},
-    {"kanji": "七", "word": "七つ", "reading": "ななつ", "meaning": "seven", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/nana"},
-    {"kanji": "八", "word": "八つ", "reading": "やっつ", "meaning": "eight", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/hachi"},
-    {"kanji": "九", "word": "九つ", "reading": "ここのつ", "meaning": "nine", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/kyuu"},
-    {"kanji": "十", "word": "十", "reading": "とお", "meaning": "ten", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/juu"},
+    {"kanji": "一", "word": "一", "reading": "いち", "meaning": "one", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/ichi"},
+    {"kanji": "二", "word": "二", "reading": "に", "meaning": "two", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/ni"},
+    {"kanji": "三", "word": "三", "reading": "さん", "meaning": "three", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/san"},
+    {"kanji": "四", "word": "四", "reading": "よん", "meaning": "four", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/yon"},
+    {"kanji": "五", "word": "五", "reading": "ご", "meaning": "five", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/go"},
+    {"kanji": "六", "word": "六", "reading": "ろく", "meaning": "six", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/roku"},
+    {"kanji": "七", "word": "七", "reading": "なな", "meaning": "seven", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/nana"},
+    {"kanji": "八", "word": "八", "reading": "はち", "meaning": "eight", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/hachi"},
+    {"kanji": "九", "word": "九", "reading": "きゅう", "meaning": "nine", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/kyuu"},
+    {"kanji": "十", "word": "十", "reading": "じゅう", "meaning": "ten", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/juu"},
     {"kanji": "百", "word": "百", "reading": "ひゃく", "meaning": "hundred", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/hyaku"},
     {"kanji": "千", "word": "千", "reading": "せん", "meaning": "thousand", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/sen"},
     {"kanji": "円", "word": "十円", "reading": "じゅうえん", "meaning": "10 yen", "category": "Numbers", "source": "https://langoal.com/teaching-materials/kanji/en"},

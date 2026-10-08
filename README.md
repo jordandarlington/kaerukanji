@@ -61,6 +61,8 @@ The N5 deck covers all **113 kanji in 13 categories** from [Langoal’s N5 overv
 
 Kanji often have several readings. Each card uses **one contextual word** from its detail page, including okurigana where appropriate: for example, `食べる → たべる` and `学校 → がっこう`. The deck is a practice set, not an exhaustive list of each kanji’s readings. Distractors with the same hiragana reading are excluded in reverse mode, so a valid alternative word is never marked wrong. Questions are shuffled without repeating a target kanji within a round.
 
+N5 numbers 1–10 use standalone numbers rather than object counters: for example, `一 → いち` and `十 → じゅう`. The selected readings for four, seven and nine are `よん`, `なな` and `きゅう`. These were checked against the [Japan Foundation’s number chart](https://www.jpf.go.jp/j/urawa/j_rsorcs/textbook/dl/setsumei/setsumei_all.pdf) on 8 October 2026.
+
 ## Add more levels
 
 The content lives separately from the quiz in `decks/n5.js` and `decks/n4.js`. Add another deck exporting `id`, `label`, `source`, and `cards`. Each card has:
