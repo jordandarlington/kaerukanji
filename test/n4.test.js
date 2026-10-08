@@ -17,11 +17,15 @@ const sourceGroups = [
   '低短弱若静有心同便利親切不',
 ];
 
-test('N4 covers all 209 kanji and 19 topics from the source overview', () => {
+test('N4 covers all 209 source kanji in 18 topics with the adjective groups combined', () => {
   assert.equal(n4.cards.length, 209);
   assert.deepEqual(n4.cards.map(card => card.kanji).sort(), [...sourceGroups.join('')].sort());
   assert.equal(new Set(n4.cards.map(card => card.kanji)).size, 209);
-  assert.equal(new Set(n4.cards.map(card => card.category)).size, 19);
+  assert.equal(new Set(n4.cards.map(card => card.category)).size, 18);
+  assert.deepEqual(
+    selectTopics(n4, ['Adjectives']).cards.map(card => card.kanji).sort(),
+    [...sourceGroups.slice(-2).join('')].sort(),
+  );
   for (const card of n4.cards) {
     assert.ok(card.word.includes(card.kanji), card.kanji);
     assert.match(card.reading, /^[ぁ-ゖー]+$/u);

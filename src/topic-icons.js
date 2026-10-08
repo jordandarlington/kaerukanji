@@ -19,7 +19,7 @@ const aliases = {
   'Countryside & clothes': 'Plants & animals', Cooking: 'Food',
   Address: 'City', Shopping: 'City', Transport: 'Position', Places: 'City',
   Study: 'School', Subjects: 'School', University: 'School', Hobbies: 'Verbs',
-  'Paired verbs': 'Verbs', 'Adjectives 1': 'Adjectives', 'Adjectives 2': 'Adjectives',
+  'Paired verbs': 'Verbs',
 };
 
 export function createTopicIcon(topic) {

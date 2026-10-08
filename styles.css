@@ -290,6 +290,17 @@ h2 {
 .topic-settings {
   margin-top:28px
 }
+.topic-settings details {
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px
+}
+.topic-settings summary {
+  cursor:pointer
+}
+.topic-settings details[open] summary {
+  margin-bottom:8px
+}
 #topic-summary {
   font-size:.875rem;
   color:var(--muted)

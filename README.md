@@ -14,7 +14,7 @@ Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢
 
 - Choose hiragana for a kanji word, or choose a kanji word for hiragana.
 - Choose N5 (113 kanji) or N4 (209 kanji) from the level selector at the top right. N5 is the default; switching levels returns to setup, selects all topics in that level and updates the question limit. The selector is disabled during an active quiz.
-- Choose the topics to practise; all topics are selected by default. Questions and answer choices come from the selected topics.
+- Expand the topics section to choose what to practise; it is collapsed by default with all topics selected. Questions and answer choices come from the selected topics.
 - Select up to the number of kanji in your chosen topics, with shortcuts for 10, 20, 30, or all available kanji.
 - Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard.
 - Get immediate answer feedback and a round summary showing any missed words.
@@ -57,7 +57,7 @@ See [GitHub’s custom Pages workflow documentation](https://docs.github.com/en/
 
 ## Content and readings
 
-The N5 deck covers all **113 kanji in 13 categories** from [Langoal’s N5 overview](https://langoal.com/teaching-materials/kanji/n5-overview.html), checked on 5 October 2026. The N4 deck covers all **209 kanji in 19 categories** from [Langoal’s N4 overview](https://langoal.com/teaching-materials/kanji/n4-overview.html), checked on 8 October 2026. Each card’s source link points to its kanji detail page. The examples and readings were verified against those linked pages; English glosses are kept short and corrected where needed.
+The N5 deck covers all **113 kanji in 13 categories** from [Langoal’s N5 overview](https://langoal.com/teaching-materials/kanji/n5-overview.html), checked on 5 October 2026. The N4 deck covers all **209 kanji** from [Langoal’s N4 overview](https://langoal.com/teaching-materials/kanji/n4-overview.html), checked on 8 October 2026, with the source’s two adjective groups merged into one **Adjectives** topic for **18 topics** in total. Each card’s source link points to its kanji detail page. The examples and readings were verified against those linked pages; English glosses are kept short and corrected where needed.
 
 Kanji often have several readings. Each card uses **one contextual word** from its detail page, including okurigana where appropriate: for example, `食べる → たべる` and `学校 → がっこう`. The deck is a practice set, not an exhaustive list of each kanji’s readings. Distractors with the same hiragana reading are excluded in reverse mode, so a valid alternative word is never marked wrong. Questions are shuffled without repeating a target kanji within a round.
 
