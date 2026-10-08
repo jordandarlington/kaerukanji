@@ -4,6 +4,7 @@ import { n3 } from './decks/n3.js';
 import { createQuestions, selectTopics } from './src/quiz.js';
 import { initializeTheme } from './src/theme.js';
 import { createTopicIcon } from './src/topic-icons.js';
+import { initializeBrowse } from './src/browse.js';
 
 initializeTheme();
 
@@ -13,8 +14,31 @@ let topics = [];
 const $ = id => document.getElementById(id);
 const settingsForm = $('settings');
 let session;
+let viewMode = 'test';
+let browse;
+
+function setViewMode(mode, focus = false) {
+  viewMode = mode;
+  $('test-mode').setAttribute('aria-pressed', String(mode === 'test'));
+  $('browse-mode').setAttribute('aria-pressed', String(mode === 'browse'));
+  $('workspace').hidden = mode === 'browse';
+  $('browse-panel').hidden = mode !== 'browse';
+  if (mode === 'test') showSetup(focus);
+  else {
+    session = null;
+    $('level-select').disabled = false;
+    $('mobile-settings-link').hidden = true;
+    browse.refresh();
+    if (focus) $('browse-title').focus();
+  }
+}
+
+$('test-mode').addEventListener('click', () => setViewMode('test', true));
+$('browse-mode').addEventListener('click', () => setViewMode('browse', true));
 
 function showSettings() {
+  $('test-mode').disabled = false;
+  $('browse-mode').disabled = false;
   $('level-select').disabled = false;
   $('settings-panel').hidden = false;
   $('mobile-settings-link').hidden = false;
@@ -33,6 +57,8 @@ function showSetup(focus = false) {
 }
 
 function startQuiz(settings, focus = false) {
+  $('test-mode').disabled = true;
+  $('browse-mode').disabled = true;
   session = {
     settings,
     questions: createQuestions(selectTopics(decks[settings.level], settings.topics), settings.mode, settings.count),
@@ -137,6 +163,8 @@ function nextQuestion() {
 function showResults() {
   const score = session.answers.filter(answer => answer.correct).length;
   const missed = session.answers.filter(answer => !answer.correct);
+  $('test-mode').disabled = false;
+  $('browse-mode').disabled = false;
   $('level-select').disabled = false;
   $('settings-panel').hidden = true;
   $('mobile-settings-link').hidden = true;
@@ -209,11 +237,12 @@ function updateLevel() {
   $('level-overview').textContent = `${deck.label} · ${deck.cards.length} KANJI`;
   renderTopics();
   updateTopics();
+  browse?.refresh();
 }
 
 $('level-select').addEventListener('change', () => {
   updateLevel();
-  showSetup();
+  if (viewMode === 'test') showSetup();
 });
 
 function selectedTopics() {
@@ -293,5 +322,14 @@ document.addEventListener('keydown', event => {
   }
 });
 
+browse = initializeBrowse({
+  getDeck: () => deck,
+  onPractise: selected => {
+    const topics = new Set(selected);
+    for (const input of $('topic-options').querySelectorAll('input')) input.checked = topics.has(input.value);
+    updateTopics();
+    setViewMode('test', true);
+  },
+});
 updateLevel();
 showSetup();
