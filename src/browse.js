@@ -12,7 +12,7 @@ export function filterCards(deck, topics, query = '') {
     normalize([card.kanji, card.word, card.reading, card.meaning, card.category].join(' ')).includes(term)));
 }
 
-export function initializeBrowse({ getDeck, onPractise }) {
+export function initializeBrowse({ getDeck }) {
   const $ = id => document.getElementById(id);
   const form = $('browse-filters');
   let level;
@@ -26,7 +26,6 @@ export function initializeBrowse({ getDeck, onPractise }) {
     const filtered = filterCards(deck, topics, $('browse-search').value);
     $('browse-topic-summary').textContent = topics.length === allTopics.length ? 'All topics' : `${topics.length} of ${allTopics.length} topics`;
     $('browse-count').textContent = `${filtered.length} of ${deck.cards.length} cards`;
-    $('browse-practise').disabled = topics.length === 0;
     $('browse-empty').hidden = filtered.length !== 0;
     $('browse-empty').textContent = topics.length === 0 ? 'Select a topic to see its cards.' : 'No matching cards. Try another search or choose more topics.';
     $('browse-grid').replaceChildren(...filtered.map(card => {
@@ -89,7 +88,6 @@ export function initializeBrowse({ getDeck, onPractise }) {
     $('browse-search').value = '';
     setTopics(true);
   });
-  $('browse-practise').addEventListener('click', () => onPractise(selectedTopics()));
   refresh();
   return { refresh };
 }

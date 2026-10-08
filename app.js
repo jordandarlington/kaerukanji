@@ -320,12 +320,6 @@ document.addEventListener('keydown', event => {
 
 browse = initializeBrowse({
   getDeck: () => deck,
-  onPractise: selected => {
-    const topics = new Set(selected);
-    for (const input of $('topic-options').querySelectorAll('input')) input.checked = topics.has(input.value);
-    updateTopics();
-    setViewMode('test', true);
-  },
 });
 updateLevel();
 showSetup();

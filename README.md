@@ -13,7 +13,7 @@ A static JLPT N5, N4 and N3 multiple-choice flashcard quiz, ready for GitHub Pag
 Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢字**. A green seal-style frog mark in `favicon.svg` is used for both the header logo and browser favicon.
 
 - Choose hiragana for a kanji word, or choose a kanji word for hiragana.
-- Switch between **Test** and **Browse**. Browse shows words, hiragana and English meanings on display-only cards, with search and topic filters including **Select all** and **Clear all**. **Practise these topics** carries the selected level and topics into test setup; the search text does not limit the quiz questions.
+- Switch between **Test** and **Browse**. Browse shows words, hiragana and English meanings on display-only cards, with search and topic filters including **Select all** and **Clear all**.
 - Choose N5 (113 kanji), N4 (209 kanji) or N3 (197 kanji) from the level selector at the top right. N5 is the default; switching levels returns to setup, selects all topics in that level and updates the question limit. The selector is disabled during an active quiz.
 - Expand the topics section to choose what to practise; it is collapsed by default with all topics selected. Questions and answer choices come from the selected topics.
 - Select up to the number of kanji in your chosen topics, with shortcuts for 10, 20, 30, or all available kanji.
