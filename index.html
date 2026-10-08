@@ -43,9 +43,9 @@
         <aside id="settings-panel" class="settings-panel" aria-labelledby="settings-title">
           <div class="panel-heading"><h2 id="settings-title">Your practice</h2><span class="small-label">SETTINGS</span></div>
           <form id="settings">
-            <fieldset><legend>Answer with hiragana or kanji?</legend><div class="mode-options">
-              <label class="mode-option"><input type="radio" name="mode" value="reading" checked><span><strong>Hiragana</strong><small>See kanji, choose its reading</small></span><span class="mode-symbol" lang="ja">あ</span></label>
-              <label class="mode-option"><input type="radio" name="mode" value="kanji"><span><strong>Kanji</strong><small>See hiragana, choose the word</small></span><span class="mode-symbol" lang="ja">漢</span></label>
+            <fieldset><legend>How do you want to practise?</legend><div class="format-options">
+              <label for="prompt-format">Questions in<select id="prompt-format" name="prompt"><option value="kanji" selected>Kanji</option><option value="reading">Hiragana</option><option value="english">English</option></select></label>
+              <label for="answer-format">Answer in<select id="answer-format" name="answer"><option value="kanji" disabled>Kanji</option><option value="reading" selected>Hiragana</option><option value="english">English</option></select></label>
             </div></fieldset>
             <fieldset class="topic-settings"><legend>Which topics?</legend><details><summary id="topic-summary">All topics selected</summary><div class="topic-actions"><button id="select-all-topics" class="text-button" type="button">Select all</button><button id="clear-topics" class="text-button" type="button">Clear</button></div><div id="topic-options" class="topic-options"></div></details><p id="topic-status" class="settings-note" role="status" aria-live="polite"></p></fieldset>
             <fieldset class="count-settings"><legend>How many questions?</legend><div class="count-presets"><button type="button" data-count="10" class="selected" aria-pressed="true">10</button><button type="button" data-count="20" aria-pressed="false">20</button><button type="button" data-count="30" aria-pressed="false">30</button><button type="button" data-count="all" aria-pressed="false">All</button></div><label class="custom-count" for="question-count"><span>Or choose a number</span><input id="question-count" name="count" type="number" min="1" max="113" value="10" required inputmode="numeric"></label></fieldset>

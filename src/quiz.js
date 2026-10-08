@@ -13,23 +13,32 @@ export function shuffle(items, random = Math.random) {
 }
 
 export function createQuestions(deck, mode, count, random = Math.random) {
-  if (!['reading', 'kanji'].includes(mode)) throw new Error('Unknown quiz mode.');
+  const formats = { kanji: 'word', reading: 'reading', english: 'meaning' };
+  const direction = typeof mode === 'string'
+    ? ({ reading: { prompt: 'kanji', answer: 'reading' }, kanji: { prompt: 'reading', answer: 'kanji' } })[mode]
+    : mode;
+  if (!direction || !formats[direction.prompt] || !formats[direction.answer] || direction.prompt === direction.answer) {
+    throw new Error('Choose different question and answer formats.');
+  }
   if (!Number.isInteger(count) || count < 1 || count > deck.cards.length) {
     throw new Error(`Choose between 1 and ${deck.cards.length} questions.`);
   }
-  const answerField = mode === 'reading' ? 'reading' : 'word';
+  const promptField = formats[direction.prompt];
+  const answerField = formats[direction.answer];
+  const key = value => value.normalize('NFKC').trim().toLowerCase();
   return shuffle(deck.cards, random).slice(0, count).map(card => {
-    const seen = new Set([card[answerField]]);
+    const seen = new Set([key(card[answerField])]);
     const distractors = shuffle(deck.cards, random).filter(candidate => {
-      // A shared reading makes either word a valid answer in reverse mode.
-      if (candidate.reading === card.reading || seen.has(candidate[answerField])) return false;
-      seen.add(candidate[answerField]);
+      // Cards sharing the prompt are also valid answers; never use them as distractors.
+      if (key(candidate[promptField]) === key(card[promptField]) || seen.has(key(candidate[answerField]))) return false;
+      if (direction.prompt !== 'english' && direction.answer !== 'english' && candidate.reading === card.reading) return false;
+      seen.add(key(candidate[answerField]));
       return true;
     }).slice(0, 3);
     if (distractors.length < 3) throw new Error('The deck needs four distinct answers.');
     return {
       card,
-      prompt: mode === 'reading' ? card.word : card.reading,
+      prompt: card[promptField],
       choices: shuffle([card, ...distractors].map(choice => ({
         label: choice[answerField],
         card: choice,

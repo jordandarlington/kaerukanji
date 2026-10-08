@@ -16,6 +16,14 @@ const settingsForm = $('settings');
 let session;
 let viewMode = 'test';
 let browse;
+const formatNames = { reading: 'hiragana', kanji: 'kanji', english: 'English' };
+let previousPrompt = $('prompt-format').value;
+$('prompt-format').addEventListener('change', () => {
+  const prompt = $('prompt-format').value;
+  if ($('answer-format').value === prompt) $('answer-format').value = previousPrompt;
+  for (const option of $('answer-format').options) option.disabled = option.value === prompt;
+  previousPrompt = prompt;
+});
 
 function setViewMode(mode, focus = false) {
   viewMode = mode;
@@ -51,7 +59,7 @@ function showSetup(focus = false) {
   $('quiz-panel').hidden = true;
   $('quiz-view').hidden = true;
   $('results-view').hidden = true;
-  if (focus) settingsForm.querySelector('input:checked').focus();
+  if (focus) $('prompt-format').focus();
 }
 
 function startQuiz(settings, focus = false) {
@@ -59,7 +67,7 @@ function startQuiz(settings, focus = false) {
   $('browse-mode').disabled = true;
   session = {
     settings,
-    questions: createQuestions(selectTopics(decks[settings.level], settings.topics), settings.mode, settings.count),
+    questions: createQuestions(selectTopics(decks[settings.level], settings.topics), settings, settings.count),
     index: 0,
     answers: [],
   };
@@ -71,7 +79,7 @@ function startQuiz(settings, focus = false) {
   $('quiz-panel').setAttribute('aria-labelledby', 'quiz-title');
   $('results-view').hidden = true;
   $('quiz-view').hidden = false;
-  $('quiz-title').textContent = settings.mode === 'reading' ? 'Choose the hiragana' : 'Choose the kanji';
+  $('quiz-title').textContent = `Choose the ${formatNames[settings.answer]}`;
   $('progress').setAttribute('aria-valuemax', settings.count);
   renderQuestion(focus);
 }
@@ -87,11 +95,16 @@ function renderQuestion(focus = false) {
   $('progress').setAttribute('aria-valuenow', session.answers.length);
   $('progress-fill').style.width = `${session.answers.length / session.settings.count * 100}%`;
   $('card-category').textContent = card.category;
-  // Keep the answer out of the card in the hiragana-to-kanji direction.
-  $('target-kanji').textContent = session.settings.mode === 'reading' && card.word !== card.kanji ? `Focus: ${card.kanji}` : '';
+  const { prompt: promptFormat, answer: answerFormat } = session.settings;
+  $('hint-reminder').hidden = promptFormat === 'english' || answerFormat === 'english';
+  if ($('hint-reminder').hidden) $('flashcard').removeAttribute('aria-describedby');
+  else $('flashcard').setAttribute('aria-describedby', 'hint-reminder meaning');
+  $('target-kanji').textContent = promptFormat === 'kanji' && card.word !== card.kanji ? `Focus: ${card.kanji}` : '';
   $('card-prompt').textContent = prompt;
-  $('card-prompt').classList.toggle('reading-prompt', session.settings.mode === 'kanji');
-  $('flashcard').setAttribute('aria-label', `${session.settings.mode === 'reading' ? 'Kanji word' : 'Hiragana reading'}: ${prompt}`);
+  $('card-prompt').lang = promptFormat === 'english' ? 'en' : 'ja';
+  $('card-prompt').classList.toggle('reading-prompt', promptFormat === 'reading');
+  $('card-prompt').classList.toggle('english-prompt', promptFormat === 'english');
+  $('flashcard').setAttribute('aria-label', `${formatNames[promptFormat]}: ${prompt}`);
   $('feedback').textContent = 'Choose one answer to continue.';
   $('feedback').className = 'feedback';
   $('next').hidden = true;
@@ -105,7 +118,7 @@ function renderQuestion(focus = false) {
     key.setAttribute('aria-hidden', 'true');
     const label = document.createElement('span');
     label.className = 'answer-label';
-    label.lang = 'ja';
+    label.lang = answerFormat === 'english' ? 'en' : 'ja';
     label.textContent = choice.label;
     button.append(key, label);
     button.addEventListener('click', () => answer(index));
@@ -186,7 +199,8 @@ function showResults() {
 }
 
 function setMeaningVisible(visible) {
-  $('meaning').hidden = !visible;
+  const englishInQuiz = session && (session.settings.prompt === 'english' || session.settings.answer === 'english');
+  $('meaning').hidden = !visible || englishInQuiz;
 }
 $('flashcard').addEventListener('mouseenter', () => {
   if (session) setMeaningVisible(true);
@@ -295,7 +309,7 @@ settingsForm.addEventListener('submit', event => {
   if (!settingsForm.reportValidity()) return;
   updateCountPresets();
   const form = new FormData(settingsForm);
-  startQuiz({ level: form.get('level'), mode: form.get('mode'), count: Number(form.get('count')), topics: form.getAll('topics') }, true);
+  startQuiz({ level: form.get('level'), prompt: form.get('prompt'), answer: form.get('answer'), count: Number(form.get('count')), topics: form.getAll('topics') }, true);
   if (window.matchMedia('(max-width:700px)').matches) {
     $('quiz-view').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   }

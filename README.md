@@ -12,12 +12,12 @@ A static JLPT N5, N4 and N3 multiple-choice flashcard quiz, ready for GitHub Pag
 
 Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢字**. A green seal-style frog mark in `favicon.svg` is used for both the header logo and browser favicon.
 
-- Choose hiragana for a kanji word, or choose a kanji word for hiragana.
+- Choose question and answer formats independently: **Kanji**, **Hiragana** or **English**, with six possible directions. Selecting the current answer format for questions swaps the two formats.
 - Switch between **Test** and **Browse**. Browse shows words, hiragana and English meanings on display-only cards, with search and topic filters including **Select all** and **Clear all**.
 - Choose N5 (113 kanji), N4 (209 kanji) or N3 (197 kanji) from the level selector at the top right. N5 is the default; switching levels returns to setup, selects all topics in that level and updates the question limit. The selector is disabled during an active quiz.
 - Expand the topics section to choose what to practise; it is collapsed by default with all topics selected. Questions and answer choices come from the selected topics.
 - Select up to the number of kanji in your chosen topics, with shortcuts for 10, 20, 30, or all available kanji.
-- Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard.
+- Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard. Hints are hidden when questions or answers use English.
 - Get immediate answer feedback and a round summary showing any missed words.
 - Use keys **1–4** to answer and **Enter** on the next-card button to advance.
 - Switch between light and dark appearance with the header’s **Dark mode** toggle. Your device’s preference is used until you choose a theme; only your theme choice is saved locally.
