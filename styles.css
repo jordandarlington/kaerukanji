@@ -150,7 +150,18 @@ main {
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:16px;
   margin-bottom:36px
+}
+.page-heading > :first-child {
+  min-width:0
+}
+.page-controls {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:10px;
+  flex-shrink:0
 }
 .eyebrow {
   font-size:.75rem;
@@ -734,7 +745,7 @@ kbd {
   border-radius:8px;
   padding:4px;
   background:var(--surface);
-  margin:0 auto 24px
+  margin:0
 }
 .view-switch button {
   border:0;
