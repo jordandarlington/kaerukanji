@@ -20,6 +20,10 @@ const aliases = {
   Address: 'City', Shopping: 'City', Transport: 'Position', Places: 'City',
   Study: 'School', Subjects: 'School', University: 'School', Hobbies: 'Verbs',
   'Paired verbs': 'Verbs',
+  'Daily life': 'Time', Feelings: 'Body', Relationships: 'People',
+  Plans: 'Calendar', Quantities: 'Numbers', Agriculture: 'Plants & animals',
+  Directions: 'Position', Buildings: 'City', Home: 'City', Driving: 'Position',
+  Introductions: 'People',
 };
 
 export function createTopicIcon(topic) {

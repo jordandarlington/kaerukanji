@@ -1,12 +1,13 @@
 import { n5 } from './decks/n5.js';
 import { n4 } from './decks/n4.js';
+import { n3 } from './decks/n3.js';
 import { createQuestions, selectTopics } from './src/quiz.js';
 import { initializeTheme } from './src/theme.js';
 import { createTopicIcon } from './src/topic-icons.js';
 
 initializeTheme();
 
-const decks = { n5, n4 };
+const decks = { n5, n4, n3 };
 let deck = n5;
 let topics = [];
 const $ = id => document.getElementById(id);

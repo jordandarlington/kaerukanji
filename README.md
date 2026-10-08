@@ -8,12 +8,12 @@
 
 ---
 
-A static JLPT N5 and N4 multiple-choice flashcard quiz, ready for GitHub Pages. No accounts, backend, analytics, cookies, or saved progress. Round scores live only in memory and disappear when the page reloads.
+A static JLPT N5, N4 and N3 multiple-choice flashcard quiz, ready for GitHub Pages. No accounts, backend, analytics, cookies, or saved progress. Round scores live only in memory and disappear when the page reloads.
 
 Website domain: **kaerukanji.com**. The header reads **kaerukanji / カエル漢字**. A green seal-style frog mark in `favicon.svg` is used for both the header logo and browser favicon.
 
 - Choose hiragana for a kanji word, or choose a kanji word for hiragana.
-- Choose N5 (113 kanji) or N4 (209 kanji) from the level selector at the top right. N5 is the default; switching levels returns to setup, selects all topics in that level and updates the question limit. The selector is disabled during an active quiz.
+- Choose N5 (113 kanji), N4 (209 kanji) or N3 (197 kanji) from the level selector at the top right. N5 is the default; switching levels returns to setup, selects all topics in that level and updates the question limit. The selector is disabled during an active quiz.
 - Expand the topics section to choose what to practise; it is collapsed by default with all topics selected. Questions and answer choices come from the selected topics.
 - Select up to the number of kanji in your chosen topics, with shortcuts for 10, 20, 30, or all available kanji.
 - Reveal English hints by hovering over a card, tapping it on a touchscreen, or focusing it with a keyboard.
@@ -59,13 +59,15 @@ See [GitHub’s custom Pages workflow documentation](https://docs.github.com/en/
 
 The N5 deck covers all **113 kanji in 13 categories** from [Langoal’s N5 overview](https://langoal.com/teaching-materials/kanji/n5-overview.html), checked on 5 October 2026. The N4 deck covers all **209 kanji** from [Langoal’s N4 overview](https://langoal.com/teaching-materials/kanji/n4-overview.html), checked on 8 October 2026, with the source’s two adjective groups merged into one **Adjectives** topic for **18 topics** in total. Each card’s source link points to its kanji detail page. The examples and readings were verified against those linked pages; English glosses are kept short and corrected where needed.
 
+The N3 deck covers all **197 kanji** from [Langoal’s N3 overview](https://langoal.com/teaching-materials/kanji/n3-overview.html), checked on 8 October 2026. Its 27 source groups are combined into **19 topics** by merging numbered adjective, verb, daily life, feeling, plan, quantity, driving and introduction groups. Vocabulary and readings were checked against the linked detail pages, with shortened and corrected English glosses. The source’s page for **末** lists examples for **未**; the **末** card instead uses `週末 → しゅうまつ` (weekend), verified against the [Japan Foundation’s Irodori vocabulary list](https://www.jpf.or.kr/irodori/sData/pdf/resources/wordlist_X.pdf) and recorded in the card’s `vocabularySource` field.
+
 Kanji often have several readings. Each card uses **one contextual word** from its detail page, including okurigana where appropriate: for example, `食べる → たべる` and `学校 → がっこう`. The deck is a practice set, not an exhaustive list of each kanji’s readings. Distractors with the same hiragana reading are excluded in reverse mode, so a valid alternative word is never marked wrong. Questions are shuffled without repeating a target kanji within a round.
 
 N5 numbers 1–10 use standalone numbers rather than object counters: for example, `一 → いち` and `十 → じゅう`. The selected readings for four, seven and nine are `よん`, `なな` and `きゅう`. These were checked against the [Japan Foundation’s number chart](https://www.jpf.go.jp/j/urawa/j_rsorcs/textbook/dl/setsumei/setsumei_all.pdf) on 8 October 2026.
 
 ## Add more levels
 
-The content lives separately from the quiz in `decks/n5.js` and `decks/n4.js`. Add another deck exporting `id`, `label`, `source`, and `cards`. Each card has:
+The content lives separately from the quiz in `decks/n5.js`, `decks/n4.js` and `decks/n3.js`. Add another deck exporting `id`, `label`, `source`, and `cards`. Each card has:
 
 ```js
 {
